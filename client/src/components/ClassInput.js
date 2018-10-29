@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./styles/ClassInput.css";
+import "../styles/ClassInput.css";
 import "rc-time-picker/assets/index.css";
 import TimePicker from "rc-time-picker";
 
