@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ClassInput from "./components/ClassInput";
 import Home from "./components/Home";
+import Search from "./components/Search";
 import Error from "./components/Error";
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
           <Switch>
             <Route path="/" component={ClassInput} exact />
 			<Route path="/signin" component={Home} />
+			<Route path="/Search" component={Search} />
 			<Route component={Error} />
           </Switch>
         </div>
