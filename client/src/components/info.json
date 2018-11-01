@@ -1,4 +1,4 @@
-export default [
+[
     {
         "courseID": "AMS2",
         "description": "Reviews and introduces mathematical methods useful in the elementary study of statistics, including logic, real numbers, inequalities, linear and quadratic equations, functions, graphs, exponential and logarithmic functions, and summation notation.  Prerequisite(s): Mathematics 2 or placement exam score of 200 or higher. (General Education Code(s): Q, MF - Mathematical and Formal Reasoning) B. Mendes, The Staff",
