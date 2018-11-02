@@ -97,6 +97,7 @@ app.get("/api/GetCourses", (req, res) => {
 		  courseTitle: c.courseTitle,
 		  description: c.description,
 		  credits: c.credits,
+		  quarter: c.quarter,
         };
         //pushing each courses onto the array
         coursesArray.push(newCourse);

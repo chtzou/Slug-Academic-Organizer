@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import "./Search.css";
+import { Button, Fade, ListGroup, ListGroupItem } from 'reactstrap';
+
 //import courses from './info'
 // what to filter for
 const KEYS_TO_FILTERS = ['courseID']
@@ -11,9 +13,11 @@ class Search extends Component {
     super(props)
     this.state = {
 	  courses: [],
-      searchTerm: ''
+      searchTerm: '',
+	  fadeIn: true,
     }
-	this.searchUpdated = this.searchUpdated.bind(this)
+	this.searchUpdated = this.searchUpdated.bind(this);
+	this.toggle = this.toggle.bind(this);
   }
   
     // request server data
@@ -36,15 +40,23 @@ class Search extends Component {
   render () {
     const filteredCourses = this.state.courses.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
-      <div>
-	  
+      <div>  
 	  	<li><Link to='/'>Class Lookup Page</Link></li>
-		<li><Link to='/signin'>Sign Up Page</Link></li>
-		  
+		<li><Link to='/signin'>Sign Up Page</Link></li>	  
         <SearchInput className='search-input' onChange={this.searchUpdated} />
         {filteredCourses.map(data => {
           return (
-              <div className='displayId'>{data.courseID}</div>
+		  <div>
+			<ListGroup>
+				<ListGroupItem Button onClick={this.toggle}>{data.courseID}</ListGroupItem>
+				<Fade in={this.state.fadeIn} tag="h5" className="mt-3">
+					{data.quarter}
+					{data.courseTitle}
+					{data.description}
+					{data.credits}
+				</Fade>
+			</ListGroup>
+		  </div>
           )
         })}
       </div>
@@ -55,6 +67,12 @@ class Search extends Component {
     this.setState({searchTerm: term})
   }
   
+//fade toggle
+  toggle() {
+        this.setState({
+            fadeIn: !this.state.fadeIn
+        });
+    }
 }
 export default Search;
 

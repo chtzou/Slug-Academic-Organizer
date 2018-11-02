@@ -15,6 +15,9 @@ const cDataSchema = new Schema({
   credits: {
     type: Number,
   },
+  quarter: {
+	  type: Number,
+  },
 });
 
 module.exports = cData = mongoose.model("cData", cDataSchema, "userClasses");
