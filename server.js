@@ -10,6 +10,7 @@ const schedule = require("./lib/data/schedule.json");
 // Models
 const ClassData = require("./server/models/classData");
 const Data = require("./server/models/Data");
+const cData = require("./server/models/cData");
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -79,4 +80,33 @@ app.post("/api/submitClass", (req, res) => {
   res.send({ express: "done" });
 });
 
+// get courses based of chtzhou's GEReq
+app.get("/api/GetCourses", (req, res) => {
+  cData.find(function(err, cs){
+    if(err){
+      //error messages
+      console.log("error");
+      return res.status(500).send({courseError: "Error"});
+    }else{
+      //array courses
+      coursesArray = [];
+      //course data
+      cs.forEach(function(c){
+        const newCourse = {
+          courseID: c.courseID,
+		  courseTitle: c.courseTitle,
+		  description: c.description,
+		  credits: c.credits,
+        };
+        //pushing each courses onto the array
+        coursesArray.push(newCourse);
+      });
+      //send the data to whoever requests it
+	  //console.log(coursesArray);
+      res.send(coursesArray);
+    }
+  });
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
+

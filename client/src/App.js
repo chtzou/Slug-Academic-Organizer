@@ -38,7 +38,7 @@ class App extends Component {
           <Switch>
             <Route path="/" component={ClassInput} exact />
 			<Route path="/signin" component={Home} />
-			<Route path="/Search" component={Search} />
+			<Route path="/search" component={Search} />
 			<Route component={Error} />
           </Switch>
         </div>
