@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import SearchInput, {createFilter} from 'react-search-input';
 import "./Search.css";
-import { Button, Fade, ListGroup, ListGroupItem } from 'reactstrap';
+import { Fade, ListGroup, ListGroupItem } from 'reactstrap';
 
 //import courses from './info'
 // what to filter for
@@ -48,9 +48,8 @@ class Search extends Component {
           return (
 		  <div>
 			<ListGroup>
-				<ListGroupItem Button onClick={this.toggle}>{data.courseID}</ListGroupItem>
+				<ListGroupItem>{data.courseID}</ListGroupItem>
 				<Fade in={this.state.fadeIn} tag="h5" className="mt-3">
-					{data.quarter}
 					{data.courseTitle}
 					{data.description}
 					{data.credits}
