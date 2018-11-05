@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 
 // Push all JSON data into database
 app.post("/api", (req, res) => {
-  for (let i = 0; i < bsoe.length; i++) {
+  for (let i = 0; i < schedule.length; i++) {
     // Create new model that'll hold schedule data
     const newData = new Data({
       courseID: schedule[i].courseID,
