@@ -15,7 +15,7 @@ module.exports = app => {
 	if (!password && !username) {
       return res.send({
         success: false,
-        messagePass: "Error: Password cannot be blank.",
+        messagePass: "Error: Password cannot be blank",
         messageUser: "Error: Username cannot be blank"
       });
     }

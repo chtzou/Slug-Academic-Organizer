@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import ClassLogging from "./components/ClassLogging";
 import GERequirements from "./components/GERequirements";
 import Calendar from "./components/Calendar";
@@ -50,8 +50,9 @@ class App extends Component {
               <Route path="/grades" component={Grades} />
               <Route path="/major" component={Major} />
               <Route path="/ge" component={GERequirements} />
-              <Route path="/calendar" component={Calendar} />
+			  <Route path="/calendar" component={Calendar} />
 			  <Route path="/account" component={Account} />
+			  <Redirect from="*" to="/" />
             </Switch>
           </div>
         </div>

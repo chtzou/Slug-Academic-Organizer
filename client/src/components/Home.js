@@ -113,7 +113,8 @@ class Home extends Component {
       signUpPassword: event.target.value
     });
   }
-
+  
+  //signs up and signs in
   onSignUp() {
     // Grab state
     const { signUpUsername, signUpPassword } = this.state;
@@ -144,9 +145,47 @@ class Home extends Component {
             signUpUsername: "",
             signUpPassword: "",
             signInErrorUser: null,
-            signInErrorPass: null
+            signInErrorPass: null,
+			signUpError: json.message,
           });
-        } else {
+			fetch("/api/account/signin", {
+				method: "POST",
+				headers: {
+				"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+				username: signUpUsername,
+				password: signUpPassword
+				})
+			})
+			.then(res => res.json())
+			.then(json => {
+			if (json.success) {
+				setInStorage("the_main_app", { token: json.token });
+				this.setState({
+				signUpErrorUser: null,
+				signUpErrorPass: null,
+				isLoading: false,
+				signInPassword: "",
+				signInUsername: "",
+				signUpPassword: "",
+				signUpUsername: "",
+				token: json.token
+			});
+			} else {
+				this.setState({
+				signInError: json.message,
+				signInErrorUser: json.messageUser,
+				signInErrorPass: json.messagePass,
+				signUpPassword: "",
+				signUpUsername: "",
+				signUpErrorUser: null,
+				signUpErrorPass: null,
+				isLoading: false
+			});
+			}
+			});
+		} else {
           this.setState({
             signUpError: json.message,
             signUpErrorUser: json.messageUser,
