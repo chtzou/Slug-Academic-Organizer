@@ -19,14 +19,16 @@ export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-	  mobileCheck: window.innerWidth < 768,
+      mobileCheck: window.innerWidth < 1024,
       events: [],
-	  isLoading: true,
-	  userID: ""
+      isLoading: true,
+      userID: ""
     };
+    this.updateMobileCheck = this.updateMobileCheck.bind(this);
   }
-    componentDidMount() {
-	//get userToken and return courses
+
+  componentDidMount() {
+    //get userToken and return courses
     const obj = getFromStorage("the_main_app");
     if (obj && obj.token) {
       const { token } = obj;
@@ -43,34 +45,34 @@ export default class Calendar extends Component {
             this.getCalendar(json.userId)
               .then(res => this.setState({ events: res }))
               .catch(err => console.log(err));
+          }else{
+            this.setState({ isLoading: false });
           }
         });
-    } 
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
+    }
+    window.addEventListener("resize", this.updateMobileCheck);
   }
 
-  callApi = async () => {
-    const response = await fetch("/");
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-	console.log(body);
-    return body;
-  };
-  
+  updateMobileCheck() {
+    if(this.state.mobileCheck !== (window.innerWidth <= 1024)){
+      this.setState({
+        mobileCheck: window.innerWidth <= 1024,
+      });
+    }
+  }
+
   //checks screen width and display listViews if mobile
   mobileView() {
-	  if (this.state.mobileCheck) return "listWeek,listDay";
-	  else return "month,agendaWeek,agendaDay";
+    if (this.state.mobileCheck) return "listWeek,listDay";
+    else return "month,agendaWeek,agendaDay";
   }
   //checks screen width and display listView as default if mobile
   mobileViewDefault() {
-	  if (this.state.mobileCheck) return "listWeek";
-	  else return "month";
+    if (this.state.mobileCheck) return "listWeek";
+    else return "month";
   }
-  
-   // Post call to the database to get the user classes (from Hannah's code)
+
+  // Post call to the database to get the user classes (from Hannah's code)
   getCalendar = async userID => {
     const response = await fetch("/api/getCalendar", {
       method: "POST",
@@ -83,16 +85,17 @@ export default class Calendar extends Component {
 
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
-	console.log(body);
-	this.setState({isLoading: false});
+
+    this.setState({ isLoading: false });
     return body;
   };
-  
+
   render() {
-	if(this.state.isLoading) {
-       return(
-             <div><img src={loader} className="App-loader" alt="loader" /></div>
-    )}
+    if (this.state.isLoading) {
+      return (
+        <div className="loaderContainer" align="center"><img src={loader} className="App-loader" alt="loader" /></div>
+      )
+    }
     return (
       <div id="calendar">
         <FullCalendar
@@ -103,30 +106,30 @@ export default class Calendar extends Component {
             center: "title",
             right: this.mobileView()
           }}
-		  buttonText={{
-			listWeek: 'week',
-			listDay: 'day'
-		   }}
-			//credits @slicedtoad and the community at stackoverflow.com for the filter portion of the code
-			eventRender = {function(event, element) {
-				element.find('.fc-title').append("<br/>" + event.description); 
-				if(event.ranges) {
-					return (event.ranges.filter(function(range) { // test event against all the ranges
-						return (event.start.isBefore(range.end) &&
-						event.end.isAfter(range.start));
-				}).length) > 0; //if it isn't in one of the ranges, don't render it (by returning false)
-			} 
-			else return true;
-		}}
-		  minTime={"08:00"}
-		  maxTime={"23:00"}
+          buttonText={{
+            listWeek: 'week',
+            listDay: 'day'
+          }}
+          //credits @slicedtoad and the community at stackoverflow.com for the filter portion of the code
+          eventRender={function (event, element) {
+            element.find('.fc-title').append("<br/>" + event.description);
+            if (event.ranges) {
+              return (event.ranges.filter(function (range) { // test event against all the ranges
+                return (event.start.isBefore(range.end) &&
+                  event.end.isAfter(range.start));
+              }).length) > 0; //if it isn't in one of the ranges, don't render it (by returning false)
+            }
+            else return true;
+          }}
+          minTime={"08:00"}
+          maxTime={"23:00"}
           defaultDate={Date.now()}
           navLinks={true}
           editable={false}
           eventLimit={true}
           weekends={false}
           events={this.state.events}
-		  defaultView={this.mobileViewDefault()}
+          defaultView={this.mobileViewDefault()}
         />
       </div>
     );

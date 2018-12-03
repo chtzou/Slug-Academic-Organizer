@@ -7,7 +7,6 @@ import NavBar from "./components/NavBar";
 import SignIn from "./components/Home";
 import Grades from "./components/Grades";
 import Major from "./components/Major";
-import Account from "./components/Account";
 import "./App.css";
 import "./styles/NavBar.css";
 
@@ -18,22 +17,6 @@ class App extends Component {
       response: "" //server response
     };
   }
-
-  //makes get request to server after the component mounts
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
-
-  callApi = async () => {
-    const response = await fetch("/");
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   render() {
     return (
@@ -50,9 +33,9 @@ class App extends Component {
               <Route path="/grades" component={Grades} />
               <Route path="/major" component={Major} />
               <Route path="/ge" component={GERequirements} />
-			  <Route path="/calendar" component={Calendar} />
-			  <Route path="/account" component={Account} />
-			  <Redirect from="*" to="/" />
+			        <Route path="/calendar" component={Calendar} />
+			        <Route path="/account" component={Account} />
+			        <Redirect from="*" to="/" />
             </Switch>
           </div>
         </div>

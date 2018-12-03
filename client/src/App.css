@@ -23,6 +23,10 @@ Button:hover{
   background-color:	#3A849D !important;
 }
 
-.container {
-  
+.App-loader {
+  width: 200px;
+}
+
+.loaderContainer {
+  margin-top: 20%;
 }

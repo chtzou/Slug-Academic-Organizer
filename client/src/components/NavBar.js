@@ -31,7 +31,7 @@ export default class NavBar extends Component {
     return (
       <div>
         <Navbar color="faded" dark expand="md" role="navigation">
-          <img className="logo" src={require("../images/slug.svg")} />
+          <img className="logo" src={require("../images/slug.svg")} alt="logo" />
           <div className="home-link">
             <NavbarBrand tag={Link} to="/" className="mr-auto">
               Slug Organizer
@@ -42,7 +42,7 @@ export default class NavBar extends Component {
             <Nav className="ml-auto" navbar>
               <NavItem className="link-1">
                 <NavLink tag={Link} to="/">
-                  Sign In
+                  Account
                 </NavLink>
               </NavItem>
               <NavItem className="link-2">

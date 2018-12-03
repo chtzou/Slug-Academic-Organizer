@@ -8,10 +8,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "PT Serif", serif;
-}
-
 /*Min font size of 16px to prevent zoom on mobile browser*/
 select.form-control,
 textarea.form-control,

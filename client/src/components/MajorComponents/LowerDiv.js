@@ -218,15 +218,23 @@ export default class LowerDiv extends Component {
                                         {this.state.taken['MATH21'] && <b>X</b>}
                                     </div>
                                 </div>
+                                <div className={this.state.taken["MATH23A"] ? 'math23a completed' : 'math23a uncompleted'}>
+                                    <ClassDataTooltips id='math23a' text='MATH23A' classData={this.state.classData['MATH23A']} />
+                                    {this.state.taken['MATH23A'] && <b>X</b>}
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="CE">
-                        <b>Computer Systems & Assembly Language</b>
+                        <b>Computer Engineering</b>
                         <hr />
                         <div className={this.state.taken['CMPE12'] ? 'ce12 completed' : 'ce12 uncompleted'}>
                             <ClassDataTooltips id='cmpe12l' text='CMPE12/L' classData={this.state.classData['CMPE12']} />
                             {this.state.taken['CMPE12'] && this.state.taken['CMPE12L'] && <b>X</b>}
+                        </div>
+                        <div className={this.state.taken['CMPE16'] ? 'ce16 completed' : 'ce16 uncompleted'}>
+                            <ClassDataTooltips id='cmpe16' text='CMPE16' classData={this.state.classData['CMPE16']} />
+                            {this.state.taken['CMPE16'] && <b>X</b>}
                         </div>
                     </div>
                 </div>

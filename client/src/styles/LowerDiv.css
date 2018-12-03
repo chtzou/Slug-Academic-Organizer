@@ -100,6 +100,13 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.math23a {
+    border: 1px solid rgb(63, 65, 82);
+    text-align: center;
+    padding: 3.5%;
+    border-radius:10px;
+}
+
 .math19a, .math19b, .ams10 {
     grid-column: 1;
     grid-row: 1;
@@ -121,7 +128,7 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.ce12 {
+.ce12, .ce16 {
     border: 1px solid rgb(63, 65, 82);
     text-align: center;
     padding: 3.5%;

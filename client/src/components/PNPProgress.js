@@ -49,19 +49,7 @@ class PNPProgress extends Component{
         isLoading: false
       });
     }
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
   }
-
-  callApi = async () => {
-    const response = await fetch("/");
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
 
   // Post call to the database to get the user classes
   makePost = async userID => {
@@ -77,8 +65,6 @@ class PNPProgress extends Component{
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);
-
-    console.log(body);
 
     return body;
   };

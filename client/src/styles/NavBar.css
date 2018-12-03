@@ -24,7 +24,8 @@
 .link-4,
 .link-5,
 .link-6,
-.link-7 {
+.link-7,
+.link-8 {
   display: inline-block;
   text-decoration: none;
 }
@@ -140,7 +141,6 @@
   transition: width 0.3s;
 }
 
-/* Calendar Link */
 .link-7::after {
   content: "";
   display: block;

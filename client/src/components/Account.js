@@ -9,26 +9,24 @@ import {
   Input,
   Button,
 } from 'reactstrap';
-import { Redirect } from 'react-router';
-import loader from './loader.svg';
+import '../styles/Account.css'
 
 export default class Account extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-	  toHome: false,
-	  isLoading: true,
+      isLoading: true,
       userID: '',
-	  username: '',
-	  checkPassword: "",
+      username: '',
+      checkPassword: "",
       changePassword: "",
-	  checkPasswordError: "",
-	  changePasswordError: "",
-	  changePasswordSucces: "",
+      checkPasswordError: "",
+      changePasswordError: "",
+      changePasswordSucces: "",
     };
-	this.onChange = this.onChange.bind(this);
-	this.logout = this.logout.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.logout = this.logout.bind(this);
     this.onTextboxChangecheckPassword = this.onTextboxChangecheckPassword.bind(this);
     this.onTextboxChangechangePassword = this.onTextboxChangechangePassword.bind(this);
   }
@@ -52,11 +50,11 @@ export default class Account extends Component {
               .then(res => this.setState({ username: res.username }))
               .catch(err => console.log(err));
           }
-		  else {this.setState({
-			  isLoading: false,
-			  toHome: true
-				});
-		  }			
+          else {
+            this.setState({
+              isLoading: false
+            });
+          }
         });
     }
   }
@@ -69,14 +67,14 @@ export default class Account extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-	  body: JSON.stringify({ userID: userID })
-	});
+      body: JSON.stringify({ userID: userID })
+    });
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
-	this.setState({isLoading: false});
+    this.setState({ isLoading: false });
     return body;
   };
-  
+
   // logout api call
   logout() {
     this.setState({
@@ -92,9 +90,9 @@ export default class Account extends Component {
           if (json.success) {
             this.setState({
               token: "",
-              isLoading: false,
-			  toHome: true
+              isLoading: false
             });
+            this.props.update();
           } else {
             this.setState({
               isLoading: false
@@ -107,7 +105,7 @@ export default class Account extends Component {
       });
     }
   }
-  
+
   //change password
   onChange() {
     // Grab state
@@ -116,37 +114,36 @@ export default class Account extends Component {
       isLoading: true
     });
 
-      // Post request to backend to change password
-   fetch("/api/account/changePassword", {
+    // Post request to backend to change password
+    fetch("/api/account/changePassword", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-		userID: userID,
-		username: username,
+        userID: userID,
+        username: username,
         checkPassword: checkPassword,
         changePassword: changePassword
       })
     })
       .then(res => res.json())
       .then(json => {
-        console.log("json", json);
         if (json.success) {
           this.setState({
             isLoading: false,
-			checkPassword: '',
-			changePassword: '',
-			checkPasswordError: null,
-			changePasswordError: null,
-			changePasswordSuccess: json.changePasswordSuccess
-			
+            checkPassword: '',
+            changePassword: '',
+            checkPasswordError: null,
+            changePasswordError: null,
+            changePasswordSuccess: json.changePasswordSuccess
+
           });
         } else {
           this.setState({
-			checkPasswordError: json.checkPasswordError,
-			changePasswordError: json.changePasswordError,
-			changePasswordSuccess: null,
+            checkPasswordError: json.checkPasswordError,
+            changePasswordError: json.changePasswordError,
+            changePasswordSuccess: null,
             isLoading: false
           });
         }
@@ -161,76 +158,68 @@ export default class Account extends Component {
 
   onTextboxChangechangePassword(event) {
     this.setState({
-     changePassword: event.target.value
+      changePassword: event.target.value
     });
   }
 
   render() {
-	const {
-	  userID,
+    const {
+      userID,
       checkPassword,
       changePassword,
-	  checkPasswordError,
-	  changePasswordError,
-	  changePasswordSuccess,
+      checkPasswordError,
+      changePasswordError,
+      changePasswordSuccess,
     } = this.state;
-	
-	//redirects if toHome is true because of logout
-	if (this.state.toHome === true) {
-      return <Redirect to='/' />
-	}
-	if(this.state.isLoading) {
-       return(
-             <div><img src={loader} className="App-loader" alt="loader" /></div>
-		)
-	}
-    if(userID) return (
+
+    if (userID) return (
       <div>
-	    <p>userID: {this.state.userID}</p>
-        <p>username: {this.state.username}</p> <br />
-			<Form>
-                <Col>
-                    <FormGroup>
-                      <Label className="password"><b>Current Password</b></Label>
-                      <Input
-                        type="password"
-                        placeholder="Current Password"
-                        value={checkPassword}
-                        onChange={this.onTextboxChangecheckPassword}
-                        invalid={this.state.checkPasswordError != null || this.state.changePasswordError != null}
-                      />
-                      <FormFeedback invalid>
-                        {checkPasswordError}
-                      </FormFeedback>
-                    </FormGroup>
-                  </Col>
-                  <Col>
-                    <FormGroup>
-                      <Label className="password2"><b>New Password</b></Label>
-                      <Input
-                        type="password"
-                        placeholder="New Password"
-                        value={changePassword}
-                        onChange={this.onTextboxChangechangePassword}
-                        invalid={this.state.changePasswordError != null || this.state.checkPasswordError != null
-						|| this.state.changePasswordSuccess}
-                      />
-                      <FormFeedback invalid>
-                        {changePasswordError}{changePasswordSuccess}
-					  </FormFeedback>
-                    </FormGroup>
-                  </Col>
-                  <div className="submit-button">
-                    <Button onClick={this.onChange}>Change Password</Button>
-                  </div>
-				  <div className="logout-button">
-					<Button onClick={this.logout}>Logout</Button>
-				  </div>
-                </Form>
+        <div className="changePass">
+          <div className="logout-button" align="right">
+            <Button onClick={this.logout}>Logout</Button>
+          </div>
+          <h4 align="center">Change Password</h4>
+          <Form>
+            <Col>
+              <FormGroup>
+                <Label className="password"><b>Current Password</b></Label>
+                <Input
+                  type="password"
+                  placeholder="Current Password"
+                  value={checkPassword}
+                  onChange={this.onTextboxChangecheckPassword}
+                  invalid={this.state.checkPasswordError != null || this.state.changePasswordError != null}
+                />
+                <FormFeedback invalid>
+                  {checkPasswordError}
+                </FormFeedback>
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label className="password2"><b>New Password</b></Label>
+                <Input
+                  type="password"
+                  placeholder="New Password"
+                  value={changePassword}
+                  onChange={this.onTextboxChangechangePassword}
+                  invalid={this.state.changePasswordError != null || this.state.checkPasswordError != null
+                    || this.state.changePasswordSuccess}
+                />
+                <FormFeedback invalid>
+                  {changePasswordError}{changePasswordSuccess}
+                </FormFeedback>
+                <div className="submit-button">
+                  <Button onClick={this.onChange}>Change Password</Button>
+                </div>
+              </FormGroup>
+            </Col>
+          </Form>
+        </div>
       </div>
     );
-	else return(
-	<div><img src={loader} className="App-loader" alt="loader" /></div>
-	)
+    else return (
+      <></>
+    )
   };
 }

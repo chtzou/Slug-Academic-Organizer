@@ -25,7 +25,7 @@ export default class Major extends Component {
     this.state = {
       userID: '',
       classes: [],
-	  isLoading: true,
+      isLoading: true,
     };
   }
 
@@ -43,12 +43,16 @@ export default class Major extends Component {
             this.setState({
               userID: json.userId,
             });
-            if(json.userID!==""){
+            if (json.userID !== "") {
               // Get the user classes from the database
               this.makePost(json.userId)
                 .then(res => this.setState({ classes: res }))
                 .catch(err => console.log(err));
+            }else{
+              this.setState({ isLoading: false });
             }
+          }else{
+            this.setState({ isLoading: false });
           }
         });
     }
@@ -69,15 +73,16 @@ export default class Major extends Component {
 
     if (response.status !== 200) throw Error(body.message);
     //console.log(body);
-    this.setState({isLoading: false});
+    this.setState({ isLoading: false });
     return body;
   };
 
   render() {
-	if(this.state.isLoading) {
-       return(
-             <div><img src={loader} className="App-loader" alt="loader" /></div>
-	)}
+    if (this.state.isLoading) {
+      return (
+        <div className="loaderContainer" align="center"><img src={loader} className="App-loader" alt="loader" /></div>
+      )
+    }
     return (
       <div>
         <LowerDiv classes={this.state.classes} /> <br />

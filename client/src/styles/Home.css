@@ -58,7 +58,13 @@
 @media screen
 and (max-width: 1024px) {
     .signInButtons, .signUpButtons {
-    margin: 15px;
-    text-align: center;
-}
+        margin: 15px;
+        text-align: center;
+    }
+    .signInContainer{
+        width: 100%;
+        margin: auto;
+        padding-top: 8%;
+        padding-bottom: 8%;
+    }
 }

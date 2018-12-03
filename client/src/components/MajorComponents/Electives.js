@@ -177,7 +177,6 @@ export default class Electives extends Component {
     };
 
     render() {
-        console.log(this.state.classes);
         return (
             <div>
                 <h3>Upper Division Electives</h3>
