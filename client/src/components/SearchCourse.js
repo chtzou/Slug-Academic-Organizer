@@ -133,6 +133,9 @@ class Search extends Component {
                     <CollapsibleHead>Status</CollapsibleHead>
                     <CollapsibleContent><RefinementList attribute="meta.status" /></CollapsibleContent>
 
+                    <CollapsibleHead>General Education</CollapsibleHead>
+                    <CollapsibleContent><RefinementList attribute="meta.general_education" /></CollapsibleContent>
+
                     <CollapsibleHead>Days</CollapsibleHead>
                     <CollapsibleContent><RefinementList attribute="lecture.days" /></CollapsibleContent>
 

@@ -259,7 +259,7 @@ class Home extends Component {
         </div>
       );
     }
-
+    //Referenced: https://alligator.io/react/fancy-forms-reactstrap/
     if (!token) {
       return (
         <>
